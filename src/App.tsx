@@ -1,16 +1,19 @@
-import { useState } from 'react'
-import viteLogo from './assets/DerpLogo.svg'
-import './App.css'
-import Topbar from './components/topbar/topbar'
+import './App.scss';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { rootStore } from './modules/app/store';
+import { TopBar } from './modules/shared';
 
 function App() {
   
   return (
-    <>
-   
-    
-    </>
-  )
+    <BrowserRouter>
+     <Provider store={rootStore}>
+      <TopBar/>
+    </Provider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
+  
