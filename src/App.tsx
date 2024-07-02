@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { rootStore } from './modules/app/store';
 import { TopBar } from './modules/shared';
+import { Pages } from './modules/app/components/Pages';
 
 function App() {
   
@@ -10,6 +11,7 @@ function App() {
     <BrowserRouter>
      <Provider store={rootStore}>
       <TopBar/>
+      <Pages />
     </Provider>
     </BrowserRouter>
   );
