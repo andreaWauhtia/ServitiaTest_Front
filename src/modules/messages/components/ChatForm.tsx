@@ -25,7 +25,7 @@ export const ChatForm: React.FC<ChatFormProps> = ({messages, user}) => {
         return (
             <div className="p-4 w-10/12 items-center justify-between h-96 overflow-y-auto">
               {messages.map((message, index) => {
-                  const messageDate = new Date(message.creation_date);
+                  const messageDate = new Date(message.creationDate);
                   const formattedDate = formatDate(messageDate);
                   const showDate = formattedDate !== lastDate;
                   lastDate = formattedDate;
@@ -39,7 +39,7 @@ export const ChatForm: React.FC<ChatFormProps> = ({messages, user}) => {
                   <ChatItem
                     sender={message.sender}
                     content={message.content}
-                    sentDate={message.creation_date}
+                    sentDate={message.creationDate}
                     isOutgoing={message.sender === user.email}
                     status={message.read ? 'read' : 'sent'}
                   />

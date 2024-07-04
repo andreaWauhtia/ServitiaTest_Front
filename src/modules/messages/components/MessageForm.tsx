@@ -1,14 +1,17 @@
 import { Message } from "@/context/messages/domain/Message";
+import { AppState } from "@/modules/app/store";
 import FABMenu, { FabMenuItem } from "@/modules/shared/components/FabMenu"
 import { RecipientSelector } from "@/modules/users/components/RecipientSelector"
 import { useState } from "react";
 import { FaEnvelope, FaPaperPlane } from "react-icons/fa"
+import { useSelector } from "react-redux";
 
 export interface MessageFormprops{
     sendMessage: (message: Message) => void;
     recipient: string;
 }
 export const MessageForm: React.FC<MessageFormprops> = ({sendMessage, recipient}) => {
+    const user = useSelector((state: AppState) => state.user.currentUser);
     const sendMenu :FabMenuItem  = 
     {
         icon : <FaEnvelope className="w-5 h-5" />,
@@ -17,9 +20,9 @@ export const MessageForm: React.FC<MessageFormprops> = ({sendMessage, recipient}
                 id: '0',
                 content: text,
                 read: false,
-                creation_date: new Date(),
+                creationDate: new Date(),
                 recipient: recipient,
-                sender: 'andrea.wauthia@gmail.com',
+                sender: user?.email ?? ""
 
             };
             sendMessage(msg);
@@ -29,12 +32,11 @@ export const MessageForm: React.FC<MessageFormprops> = ({sendMessage, recipient}
     const handleSendMessage = (e: React.SyntheticEvent) => {
         e.preventDefault();
         const msg: Message = {
-            id: '0',
             content: text,
             read: false,
-            creation_date: new Date(),
+            creationDate: new Date(),
             recipient: recipient,
-            sender: 'andrea.wauthia@gmail.com',
+            sender: user?.email ?? ""
 
         };
         sendMessage(msg);

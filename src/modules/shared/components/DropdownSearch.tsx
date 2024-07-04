@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { notificationIcon } from './Topbar';
+import { Badge } from './Badge';
 
-export interface DropdownSearchProps{
-    items: {id: string, label: string}[];
-    selectItem: (id: string) => void;
-    selectedItems?: {id: string, label: string};
+export interface DropdownSearchProps {
+  items: { id: string, label: string, bubbled: boolean }[];
+  selectItem: (id: string) => void;
+  selectedItems?: { id: string, label: string, bubbled: boolean };
 }
 export const DropdownSearch = (props: DropdownSearchProps) => {
 
-  const {items, selectedItems, selectItem} = props;  
+  const { items, selectedItems, selectItem } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -21,16 +23,16 @@ export const DropdownSearch = (props: DropdownSearchProps) => {
 
   const handleCheckboxChange = (e: React.SyntheticEvent) => {
     const { id, checked } = e.target as HTMLInputElement;
-    if (checked){
-    selectItem(id);
+    if (checked) {
+      selectItem(id);
     }
-    else{
+    else {
       selectItem('');
     }
     handleToggle();
   };
 
- const filteredItems = items.filter(it => searchTerm !== '' ? it.label.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 : it === it);
+  const filteredItems = items.filter(it => searchTerm !== '' ? it.label.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 : it === it);
 
   return (
     <div>
@@ -40,9 +42,9 @@ export const DropdownSearch = (props: DropdownSearchProps) => {
         className=" w-full text-white bg-black hover:bg-gray-800 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center rounded-r-md "
         type="button"
       >
-       
+
         <svg className="w-2.5 h-2.5 end-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
         </svg>
       </button>
 
@@ -53,7 +55,7 @@ export const DropdownSearch = (props: DropdownSearchProps) => {
             <div className="relative">
               <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
               </div>
               <input
@@ -77,11 +79,16 @@ export const DropdownSearch = (props: DropdownSearchProps) => {
                     onChange={handleCheckboxChange}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-md focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                   />
-                  <label htmlFor={item.id} className="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{item.label}</label>
+                  <label htmlFor={item.id} className="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{item.label} </label>
+                  {item.bubbled && (
+                    <span className="ml-2 flex h-2 w-2">
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                  )}
                 </div>
               </li>
             ))}
-          </ul>    
+          </ul>
         </div>
       )}
     </div>

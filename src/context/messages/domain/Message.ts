@@ -1,11 +1,11 @@
 export interface Message {
-    id: string; 
+    id?: string; 
     recipient: string;
     sender: string;
     content: string;
     read: boolean; 
-    creation_date: Date; 
-    last_modification?: Date;
+    creationDate: Date; 
+    lastModification?: Date;
   }
   
 
