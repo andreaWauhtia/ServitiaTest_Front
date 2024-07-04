@@ -2,6 +2,7 @@ import { AddUser } from '@/context/users/application/addUser';
 import { AppDispatch } from '@/modules/app/store';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -10,10 +11,12 @@ export const SignUp = () => {
   const [passwordChecked, setPasswordChecked] = useState('');
   const [passwordValid, setValidation] = useState(false);
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (passwordValid){
         AddUser(email,username,password,dispatch);
+        navigate("/login");
     } 
   };
 

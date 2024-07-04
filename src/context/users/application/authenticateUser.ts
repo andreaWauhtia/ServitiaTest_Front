@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "@/modules/app/store";
 import { GetRecipients } from "./getRecipients";
+import { addNotification } from "@/modules/shared/store/NotificationStore";
 
 export const AuthenticateUser = (email: string, password: string, dispatch: AppDispatch) => {
     const api = new authenticationApi();
@@ -27,5 +28,5 @@ export const AuthenticateUser = (email: string, password: string, dispatch: AppD
             GetRecipients(user.email,dispatch);
         }
     )
-        .catch(error => alert(error));
+    .catch(error =>  dispatch((addNotification({message: `${error}`, duration: 3000, status: "error"}))));
 }
