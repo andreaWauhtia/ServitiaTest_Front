@@ -30,7 +30,7 @@ export const MessageManager: React.FC<{ }> = ({}) => {
     }
     
     useEffect(() => {
-        if (!user || !recipient) return;
+        if (!user || !recipient || recipient === '') return;
     
         const connection = new signalR.HubConnectionBuilder()
           .withUrl("http://localhost:5201/read")
